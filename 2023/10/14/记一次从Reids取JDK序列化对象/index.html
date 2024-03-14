@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="kael">
+    
+    <title>
+        
+            记一次从Reids取JDK序列化对象 |
+        
+        kael&#39;s blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://s1.ax1x.com/2022/03/30/qg0LZD.jpg">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"https://s1.ax1x.com/2022/03/30/qg0LZD.jpg","favicon":"https://s1.ax1x.com/2022/03/30/qg0LZD.jpg","article_img_align":"left","left_side_width":"260px","content_max_width":"1520px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":null,"description":"每天进步一点！"},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                kael&#39;s blog
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">记一次从Reids取JDK序列化对象</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="https://s1.ax1x.com/2022/03/30/qg0LZD.jpg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">kael</span>
+                        
+                            <span class="author-label">Lv1</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2023-10-14 12:01:00</span>
+        <span class="mobile">2023-10-14 12:01</span>
+    </span>
+    
+    
+
+    
+    
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="1、问题描述"><a href="#1、问题描述" class="headerlink" title="1、问题描述"></a>1、问题描述</h1><p>当时场景: 排查问题，需查看看redis的JDK序列化后的对象数据, 不能直联redis </p>
+<p>当时思路:<br>使用redis命令查出对应key的数据<code>get xxx</code><br>利用查出来的数据, 直接序列化<br>一时没有立马解决, 现回顾问题并排除知识盲区</p>
+<h1 id="2、解决步骤"><a href="#2、解决步骤" class="headerlink" title="2、解决步骤"></a>2、解决步骤</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./redis-cli -a password get user &gt; aa.txt</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RedisTest</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title function_">deserialize</span><span class="params">()</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">FileInputStream</span> <span class="variable">fileInputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;aa.txt&quot;</span>));</span><br><span class="line">        <span class="type">ObjectInputStream</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectInputStream</span>(fileInputStream);</span><br><span class="line">        <span class="type">Object</span> <span class="variable">o</span> <span class="operator">=</span> in.readObject();</span><br><span class="line">        System.out.println(o);</span><br><span class="line">        <span class="keyword">return</span> o;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        deserialize();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="3、问题盲区"><a href="#3、问题盲区" class="headerlink" title="3、问题盲区"></a>3、问题盲区</h1><h2 id="3-1-问题1"><a href="#3-1-问题1" class="headerlink" title="3.1 问题1"></a>3.1 问题1</h2><p>redis用命令行取出来的数据 二进制部分数据会被16进制处理来好显示出来</p>
+<h2 id="3-2-问题2"><a href="#3-2-问题2" class="headerlink" title="3.2 问题2"></a>3.2 问题2</h2><p>序列化ID 其实不是必要的 反序列化会直接提示与对比的结果不同，会直接显示两个不通的序列化ID</p>
+<h1 id="4、补充"><a href="#4、补充" class="headerlink" title="4、补充"></a>4、补充</h1><p>假如key也被jdk序列化，key在用命令行输入时不好直接输入 或者 输入的方式不对</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Redis服务器连接信息</span></span><br><span class="line">REDIS_HOST=<span class="string">&quot;localhost&quot;</span></span><br><span class="line">REDIS_PORT=<span class="string">&quot;6379&quot;</span></span><br><span class="line">REDIS_PASSWORD=<span class="string">&quot;xxx&quot;</span>  <span class="comment"># 替换为你的Redis密码</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 匹配的键模式</span></span><br><span class="line">KEY_PATTERN=<span class="string">&quot;*user&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出文件目录</span></span><br><span class="line">OUTPUT_DIRECTORY=<span class="string">&quot;output/&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建输出目录</span></span><br><span class="line"><span class="built_in">mkdir</span> -p <span class="string">&quot;<span class="variable">$OUTPUT_DIRECTORY</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用KEYS命令进行模糊查询</span></span><br><span class="line">keys=$(./redis-cli -h <span class="variable">$REDIS_HOST</span> -p <span class="variable">$REDIS_PORT</span> -a <span class="string">&quot;<span class="variable">$REDIS_PASSWORD</span>&quot;</span> KEYS <span class="string">&quot;<span class="variable">$KEY_PATTERN</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">index=0</span><br><span class="line"><span class="keyword">for</span> key <span class="keyword">in</span> <span class="variable">$keys</span>; <span class="keyword">do</span></span><br><span class="line">    <span class="comment"># 使用GET命令获取键的值</span></span><br><span class="line">    value=$(./redis-cli -h <span class="variable">$REDIS_HOST</span> -p <span class="variable">$REDIS_PORT</span> -a <span class="string">&quot;<span class="variable">$REDIS_PASSWORD</span>&quot;</span> GET <span class="string">&quot;<span class="variable">$key</span>&quot;</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 为每个键创建一个单独的文件，以键名命名</span></span><br><span class="line">    file_name=<span class="string">&quot;$OUTPUT_DIRECTORY<span class="variable">$index</span>.txt&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$key</span> -&gt; <span class="variable">$file_name</span>&quot;</span>   </span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 保存值到文件</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$value</span>&quot;</span> &gt; <span class="string">&quot;<span class="variable">$file_name</span>&quot;</span></span><br><span class="line">    </span><br><span class="line">    ((index++)) </span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Values matching pattern &#x27;<span class="variable">$KEY_PATTERN</span>&#x27; saved to files in &#x27;<span class="variable">$OUTPUT_DIRECTORY</span>&#x27;.&quot;</span></span><br></pre></td></tr></table></figure>
+<p>以上脚本更换你要匹配的key值，会将所有可能匹配的key进行数据到文件夹中<code>output/</code>,根据控制开打印key对应的文件得到文件</p>
+
+        </div>
+
+        
+
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2023/12/06/%E5%88%B7%E9%A2%98/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">LRU+定期删除</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2023/09/14/%E5%9F%9F%E5%90%8D%E5%87%BA%E5%94%AE/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">此域名出售</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2024&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">kael</a>
+        </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1%E3%80%81%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">1、问题描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2%E3%80%81%E8%A7%A3%E5%86%B3%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.</span> <span class="nav-text">2、解决步骤</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3%E3%80%81%E9%97%AE%E9%A2%98%E7%9B%B2%E5%8C%BA"><span class="nav-number">3.</span> <span class="nav-text">3、问题盲区</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-%E9%97%AE%E9%A2%981"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 问题1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-%E9%97%AE%E9%A2%982"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 问题2</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4%E3%80%81%E8%A1%A5%E5%85%85"><span class="nav-number">4.</span> <span class="nav-text">4、补充</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>

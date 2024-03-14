@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="kael">
+    
+    <title>
+        
+        kael&#39;s blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://s1.ax1x.com/2022/03/30/qg0LZD.jpg">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"https://s1.ax1x.com/2022/03/30/qg0LZD.jpg","favicon":"https://s1.ax1x.com/2022/03/30/qg0LZD.jpg","article_img_align":"left","left_side_width":"260px","content_max_width":"1520px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":null,"description":"每天进步一点！"},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                kael&#39;s blog
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation"></span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="https://s1.ax1x.com/2022/03/30/qg0LZD.jpg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">kael</span>
+                        
+                            <span class="author-label">Lv1</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2024-03-14 03:31:26</span>
+        <span class="mobile">2024-03-14 03:31</span>
+    </span>
+    
+    
+
+    
+    
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h2 id="1、垃圾收集器"><a href="#1、垃圾收集器" class="headerlink" title="1、垃圾收集器"></a>1、垃圾收集器</h2><h3 id="1-1、serial收集器"><a href="#1-1、serial收集器" class="headerlink" title="1.1、serial收集器"></a>1.1、serial收集器</h3><p>单线程<br>作用域: 新生代<br>算法: 标记-复制算法</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-XX:+UseSerialGC</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="1-2、ParNew收集器"><a href="#1-2、ParNew收集器" class="headerlink" title="1.2、ParNew收集器"></a>1.2、ParNew收集器</h3><p>多线程<br>作用域: 新生代<br>算法: 标记-复制算法</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">XX:ParallelGCThreads 参数来限制垃圾收集器的线程数。</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-3、Parallel-Scavenge收集器"><a href="#1-3、Parallel-Scavenge收集器" class="headerlink" title="1.3、Parallel Scavenge收集器"></a>1.3、Parallel Scavenge收集器</h3><p>多线程<br>作用域: 新生代<br>算法: 标记-复制算法<br>高吞吐量: Parallel Scavenge 重点关注的是程序达到一个可控制的吞吐量（Thoughput，吞吐量 &#x3D; 运行用户代码时间 &#x2F; (运行用户代码时间 + 垃圾收集时间)），高吞吐量可以最高效率地利用 CPU 时间，尽快地完成程序的运算任务；<br>特点:<br>如何达到控制吞吐量？</p>
+<h3 id="1-4、Serial-Old收集器"><a href="#1-4、Serial-Old收集器" class="headerlink" title="1.4、Serial Old收集器"></a>1.4、Serial Old收集器</h3><p>单线程<br>作用域: 老年代<br>算法: 标记-整理算法</p>
+<h3 id="1-5、Parallel-Old收集器"><a href="#1-5、Parallel-Old收集器" class="headerlink" title="1.5、Parallel Old收集器"></a>1.5、Parallel Old收集器</h3><p>多线程<br>作用域: 老年代<br>算法: 标记-整理算法</p>
+<h3 id="1-6、CMS收集器"><a href="#1-6、CMS收集器" class="headerlink" title="1.6、CMS收集器"></a>1.6、CMS收集器</h3><p>多线程<br>作用域: 老年代<br>算法: 标记-清除算法<br>CMS 运行过程分为以下 4 个阶段：<br>初始标记：标记 GC Roots 能直接关联的对象（速度很快，需要暂停所有的工作线程）；<br>并发标记：进行 GC Roots 跟踪（和用户线程一起工作，不需要暂停工作线程）；<br>重新标记：修正因用户程序继续运行而导致标记产生变动的那一部分对象的标记（需要暂停所有的工作线程）；<br>并发清除：清除 GC Roots 不可达对象（和用户线程一起工作，不需要暂停工作线程）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-XX:+UseConcMarkSweepGC</span><br></pre></td></tr></table></figure>
+<p>CMS核心参数<br>1.-XX:+UseConcMarkSweepGC：启用cms;</p>
+<p>2.-XX:ConcGCThreads：并发的GC线程数;</p>
+<p>3.-XX:+UseCMSCompactAtFullCollection：FullGC之后做压缩整理（整理碎片,也就是浮动垃圾）;</p>
+<p>4.-XX:CMSFullGCsBeforeCompaction：多少次FullGC之后压缩一次，(默认是0，代表每次FullGC后都会压缩一次&#x2F;错误知识点);</p>
+<p>5.-XX:CMSInitiatingOccupancyFraction: 当老年代内存使用达到该比例时会触发FullGC（默认是92，这是百分比）&#x3D;&#x3D;&gt; 解决concurrent mode failure问题, 让其不会等到内存快用完了,才去做full gc</p>
+<p>6.-XX:+UseCMSInitiatingOccupancyOnly：只使用设定的回收阈值(-XX:CMSInitiatingOccupancyFraction设</p>
+<p>定的值)，如果不指定，JVM仅在第一次使用设定值，后续则会自动调整百分比;</p>
+<p>7.-XX:+CMSScavengeBeforeRemark：在CMS GC前启动一次minor gc，目的在于减少老年代对年轻代的引用，降低CMS GC的标记阶段时的开销，一般CMS的GC耗时 80%都在标记阶段;</p>
+<p>8.-XX:+CMSParallellnitialMarkEnabled：表示在初始标记的时候多线程执行，缩短STW;</p>
+<p>9.-XX:+CMSParallelRemarkEnabled：在重新标记的时候多线程执行，缩短STW;</p>
+<h3 id="1-7、G1收集器"><a href="#1-7、G1收集器" class="headerlink" title="1.7、G1收集器"></a>1.7、G1收集器</h3><p>无分代: G1 将新生代，老年代的物理空间划分取消了。这样我们再也不用单独的空间对每个代进行设置了，不用担心每个代内存是否足够；<br>标记-整理算法: G1 收集器采用标记-整理算法，无内存碎片产生；<br>分区回收: G1 虽然没有了新生代与老年代的物理限制，但是 G1 采取内存分区策略，将堆内存划分为大小固定的几个独立区域。在分区中，同时存在新生代与老年代；<br>停顿时间(可以用JVM参数 -XX:MaxGCPauseMillis指定)来制定回收计划<br>可以用参数”-XX:G1HeapRegionSize”手动指定Region大小</p>
+<p><strong>G1 垃圾收集分类</strong><br>1、YoungGC</p>
+<p>YoungGC并不是说现有的Eden区放满了就会马上触发，G1会计算下现在Eden区回收大概要多久时间，如果回收时间远远小于参数 -XX:MaxGCPauseMills 设定的值，那么增加年轻代的region，继续给新对象存放，不会马上做Young GC，直到下一次Eden区放满，G1计算回收时间接近参数 -XX:MaxGCPauseMills 设定的值，那么就会触发Young GC；</p>
+<p>2、MixedGC</p>
+<p>不是FullGC，老年代的堆占有率达到参数(-XX:InitiatingHeapOccupancyPercent)设定的值则触发，回收所有的Young和部分Old(根据期望的GC停顿时间确定old区垃圾收集的优先顺序)以及大对象区，正常情况G1的垃圾收集是先做MixedGC，主要使用复制算法，需要把各个region中存活的对象拷贝到别的region里去，拷贝过程中如果发现没有足够的空region能够承载拷贝对象就会触发一次Full GC；</p>
+<p>3、Full GC</p>
+<p>停止系统程序，然后采用单线程进行标记、清理和压缩整理，好空闲出来一批Region来供下一次MixedGC使用，这个过程是非常耗时的。(Shenandoah优化成多线程收集了) ；</p>
+<p>G1收集器参数设置<br>-XX:+UseG1GC:使用G1收集器</p>
+<p>-XX:ParallelGCThreads:指定GC工作的线程数量</p>
+<p>-XX:G1HeapRegionSize:指定分区大小(1MB~32MB，且必须是2的N次幂)，默认将整堆划分为2048个分区</p>
+<p>-XX:MaxGCPauseMillis:目标暂停时间(默认200ms)</p>
+<p>-XX:G1NewSizePercent:新生代内存初始空间(默认整堆5%)</p>
+<p>-XX:G1MaxNewSizePercent:新生代内存最大空间</p>
+<p>-XX:TargetSurvivorRatio:Survivor区的填充容量(默认50%)，Survivor区域里的一批对象(年龄1+年龄2+年龄n的多个年龄对象)总和超过了Survivor区域的50%，此时就会把年龄n(含)以上的对象都放入老年代</p>
+<p>-XX:MaxTenuringThreshold:最大年龄阈值(默认15)</p>
+<p>-XX:InitiatingHeapOccupancyPercent:老年代占用空间达到整堆内存阈值(默认45%)，则执行新生代和老年代的混合收集(MixedGC)，比如我们之前说的堆默认有2048个region，如果有接近1000个region都是老年代的region，则可能 就要触发MixedGC了</p>
+<p>-XX:G1MixedGCLiveThresholdPercent(默认85%) region中的存活对象低于这个值时才会回收该region，如果超过这 个值，存活对象过多，回收的的意义不大。</p>
+<p>-XX:G1MixedGCCountTarget:在一次回收过程中指定做几次筛选回收(默认8次)，在最后一个筛选回收阶段可以回收一会，然后暂停回收，恢复系统运行，一会再开始回收，这样可以让系统不至于单次停顿时间过长。</p>
+<p>-XX:G1HeapWastePercent(默认5%): gc过程中空出来的region是否充足阈值，在混合回收的时候，对Region回收都 是基于复制算法进行的，都是把要回收的Region里的存活对象放入其他Region，然后这个Region中的垃圾对象全部清理掉，这样的话在回收过程就会不断空出来新的Region，一旦空闲出来的Region数量达到了堆内存的5%，此时就会立即停止混合回收，意味着本次混合回收就结束了。</p>
+<table>
+<thead>
+<tr>
+<th>垃圾收集器</th>
+<th>分类</th>
+<th>作用位置</th>
+<th>使用算法</th>
+<th>特点</th>
+<th>适用场景</th>
+<th>别名</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Serial</td>
+<td>串行</td>
+<td>新生代</td>
+<td>复制算法</td>
+<td>响应速度优先</td>
+<td>适用于单CPU环境下的client模式</td>
+<td>Copy</td>
+</tr>
+<tr>
+<td>ParNew</td>
+<td>并行</td>
+<td>新生代</td>
+<td>复制算法</td>
+<td>响应速度优先</td>
+<td>多CPU环境Server模式下与CMS配合使用</td>
+<td>ParNew</td>
+</tr>
+<tr>
+<td>Parallel</td>
+<td>并行</td>
+<td>新生代</td>
+<td>复制算法</td>
+<td>吞吐量优先</td>
+<td>适用于后台运算而不需要太多交互的场景</td>
+<td>PS Scavenge</td>
+</tr>
+<tr>
+<td>Serial Old</td>
+<td>串行</td>
+<td>老年代</td>
+<td>标记-整理(压缩)算法</td>
+<td>响应速度优先</td>
+<td>适用于单CPU环境下的Client模式</td>
+<td>MarkSweepCompact</td>
+</tr>
+<tr>
+<td>Paraller Old</td>
+<td>并行</td>
+<td>老年代</td>
+<td>标记-整理(压缩)算法</td>
+<td>吞吐量优先</td>
+<td>适用于后台运算而不需要太多交互的场景</td>
+<td>PS MarkSweep</td>
+</tr>
+<tr>
+<td>CMS</td>
+<td>并发</td>
+<td>老年代</td>
+<td>标记-清除算法</td>
+<td>响应速度优先</td>
+<td>适用于互联网或B／S业务</td>
+<td>ConcurrentMarkSweep</td>
+</tr>
+<tr>
+<td>G1</td>
+<td>并发、并行</td>
+<td>新生代、老年代</td>
+<td>标记-整理(压缩)算法</td>
+<td>响应速度优先</td>
+<td>响应速度优先</td>
+<td>G1 Mixed Generation</td>
+</tr>
+</tbody></table>
+<p>补充学习</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_46209120/article/details/132812808" >https://blog.csdn.net/weixin_46209120/article/details/132812808<i class="fas fa-external-link-alt"></i></a></p>
+<h3 id="1-8-收集器组合"><a href="#1-8-收集器组合" class="headerlink" title="1.8 收集器组合"></a>1.8 收集器组合</h3><table>
+<thead>
+<tr>
+<th>Young</th>
+<th>Tenured</th>
+<th>JVM options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Serial</td>
+<td>Serial Old</td>
+<td>-XX:+UseSerialGC</td>
+<td>单线程进行GC，适合单CPU或小内存，单机程序</td>
+</tr>
+<tr>
+<td>Serial–</td>
+<td>CMS+SerialOld</td>
+<td>-XX:-UseParNewGC -XX:+UseConcMarkSweepGC</td>
+<td>CMS进行GC失败时，会自动使用Serial Old 策略进行GC；JDK8中声明为废弃</td>
+</tr>
+<tr>
+<td>Parallel Scavenge</td>
+<td>Serial Old</td>
+<td>-XX:+UseParallelGC</td>
+<td>Jdk1.5及之前版本的搭配使用</td>
+</tr>
+<tr>
+<td>Parallel Scavenge</td>
+<td>Parallel Old</td>
+<td>-XX:+UseParallelGC -XX:+UseParallelOldGC</td>
+<td>适合多CPU，需要最大吞吐量，如后台计算型应用；是JDK8默认收集器策略</td>
+</tr>
+<tr>
+<td>Parallel New–</td>
+<td>Serial Old</td>
+<td>-XX:+UseParNewGC</td>
+<td>JDK8中声明为废弃</td>
+</tr>
+<tr>
+<td>Parallel New</td>
+<td>CMS+SerialOld</td>
+<td>-XX:+UseParNewGC -XX:+UseConcMarkSweepGC</td>
+<td>适合多CPU，追求低停顿时间，需快速响应如互联网应用</td>
+</tr>
+<tr>
+<td>G1</td>
+<td></td>
+<td>-XX:+UseG1GC</td>
+<td>JDK9默认收集器</td>
+</tr>
+<tr>
+<td>ZGC</td>
+<td></td>
+<td>-XX:+UseZGC</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="2、JVM-jdk自带工具"><a href="#2、JVM-jdk自带工具" class="headerlink" title="2、JVM jdk自带工具"></a>2、JVM jdk自带工具</h2><h3 id="2-1-jmap"><a href="#2-1-jmap" class="headerlink" title="2.1 jmap"></a>2.1 jmap</h3><p>jmap是java内存映像工具，主要用于查询当前堆和方法区的详细信息，生成堆的快照文件等。一般都是使用<code>-XX:+HeapDumpOnOutOfMemoryError</code>参数指定JVM在内存溢出异常时自动生成堆的快照文件。之后在服务器发生内存溢出异常时，将对应的快照文件拉取到本地使用工具分析。</p>
+<p>常用命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">查看java堆使用情况</span><br><span class="line">jmap -heap pid</span><br><span class="line"></span><br><span class="line">将内存使用输出至文件</span><br><span class="line">jmap -dump:format=b,file=heapDump pid</span><br><span class="line"></span><br><span class="line">生成的文件配合jhat命令可查看详细情况</span><br><span class="line">jhat -port 5000 heapDump</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="2-2-jstack"><a href="#2-2-jstack" class="headerlink" title="2.2 jstack"></a>2.2 jstack</h3><p>jstack用于生成java虚拟机当前时刻线程快照，可定位线程死锁，死循环</p>
+<p>常用命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jstack pid</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3、其他工具"><a href="#3、其他工具" class="headerlink" title="3、其他工具"></a>3、其他工具</h2><h3 id="3-1-Arthas"><a href="#3-1-Arthas" class="headerlink" title="3.1 Arthas"></a>3.1 Arthas</h3><p>在命令行下面执行（使用和目标进程一致的用户启动，否则可能 attach 失败）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -O https://arthas.aliyun.com/arthas-boot.jar</span><br><span class="line">java -jar arthas-boot.jar</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="3-1-1-dashboard"><a href="#3-1-1-dashboard" class="headerlink" title="3.1.1 dashboard"></a>3.1.1 dashboard</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dashboard</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>3.1.2 jad<br>反编译文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jad &lt;全路径名&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>3.1.3 trace</p>
+<p>方法耗时跟踪</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">trace &lt;全路径名&gt; &lt;方法名&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="4、问题"><a href="#4、问题" class="headerlink" title="4、问题"></a>4、问题</h2><p>如何调优？<br>1、调整堆内存的大小<br>2、调整垃圾回收器<br>3、设置新生代和老年代比例<br>4、设置GC线程数<br>6、使用合适数据结构，减少对象创建</p>
+<p>1、设置基础JVM参数<br>设置内存大小参数<br>设置元空间大小参数 -XX:MaxMetaspaceSize 最大值：防止向操作系统内存中占用大小 一般256m  -XX:MetaspaceSize 这个值代表进行fullgc清理预值 两者一样不会发生fullgc<br>设置虚拟机栈大小 -Xss 根据操作系统值不一样 x86_64 1M<br>不建议手动调节</p>
+<ul>
+<li>-Xmn 设置年轻代大小，默认为整个堆大小的1&#x2F;3(G1不建议)</li>
+<li>-XX:MaxTenuringThreshold 最大晋升值</li>
+<li>-XX:HeapDumpOnOutOfMemoryError -XX:HeapDumpPath&#x3D;<path></li>
+<li>-XX:+PrintGCDetails -XX:PrintGCDateStamps -Xloggc:文件路径<br>2、利用良好数据结构，减少对象创建<br>3、更换匹配的垃圾回收器<br>4、优化垃圾回收器参数</li>
+</ul>
+<p>垃圾回收器如何选择？<br>1、优先调整堆的大小让JVM自己选择<br>2、内存很小或者单核机器直接串行 或 JVM自己选择<br>3、如果允许停顿时间超过1秒，选择并行或者JVM自己选<br>4、如果响应时间最重要，并且不能超过1秒，使用并发收集器<br>5、4G以下可以用parallel，4-8G可以用ParNew+CMS，8G以上可以用G1，几百G以上用ZGC</p>
+
+        </div>
+
+        
+
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2023/12/06/%E5%88%B7%E9%A2%98/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">LRU+定期删除</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2024&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">kael</a>
+        </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">1、垃圾收集器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1%E3%80%81serial%E6%94%B6%E9%9B%86%E5%99%A8"><span class="nav-number">1.1.</span> <span class="nav-text">1.1、serial收集器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2%E3%80%81ParNew%E6%94%B6%E9%9B%86%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text">1.2、ParNew收集器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3%E3%80%81Parallel-Scavenge%E6%94%B6%E9%9B%86%E5%99%A8"><span class="nav-number">1.3.</span> <span class="nav-text">1.3、Parallel Scavenge收集器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4%E3%80%81Serial-Old%E6%94%B6%E9%9B%86%E5%99%A8"><span class="nav-number">1.4.</span> <span class="nav-text">1.4、Serial Old收集器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5%E3%80%81Parallel-Old%E6%94%B6%E9%9B%86%E5%99%A8"><span class="nav-number">1.5.</span> <span class="nav-text">1.5、Parallel Old收集器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6%E3%80%81CMS%E6%94%B6%E9%9B%86%E5%99%A8"><span class="nav-number">1.6.</span> <span class="nav-text">1.6、CMS收集器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-7%E3%80%81G1%E6%94%B6%E9%9B%86%E5%99%A8"><span class="nav-number">1.7.</span> <span class="nav-text">1.7、G1收集器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-8-%E6%94%B6%E9%9B%86%E5%99%A8%E7%BB%84%E5%90%88"><span class="nav-number">1.8.</span> <span class="nav-text">1.8 收集器组合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81JVM-jdk%E8%87%AA%E5%B8%A6%E5%B7%A5%E5%85%B7"><span class="nav-number">2.</span> <span class="nav-text">2、JVM jdk自带工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-jmap"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 jmap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-jstack"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 jstack</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E5%85%B6%E4%BB%96%E5%B7%A5%E5%85%B7"><span class="nav-number">3.</span> <span class="nav-text">3、其他工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-Arthas"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 Arthas</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-1-dashboard"><span class="nav-number">3.1.1.</span> <span class="nav-text">3.1.1 dashboard</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81%E9%97%AE%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">4、问题</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>
